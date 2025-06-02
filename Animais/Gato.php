@@ -9,8 +9,7 @@ class Gato extends Animal{
     }
     
     public function speak(){
-        echo $this->getNameTutor() . PHP_EOL;
-        return $this->getName() . ": Miau!" . PHP_EOL;
+        return "Miau!";
     }
 
 }

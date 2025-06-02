@@ -10,6 +10,6 @@ class Passarinho extends Animal{
     }
 
     public function speak(){
-        return $this->getName() . ": Piu!" . PHP_EOL;
+        return ": Piu!";
     }
 }

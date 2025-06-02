@@ -1,6 +1,9 @@
 <?php
 
+require_once __DIR__ . "/../Humanos/Tutor.php";
+
 abstract class Animal {
+    private Tutor $tutor;
     private string $name;
     private string $breed;
     private string $color;
@@ -8,9 +11,8 @@ abstract class Animal {
     private float $weight;
     private float $size;
 
-    abstract public function speak();    
-
-    public function __construct(string $name, string $breed, string $color, int $paws, float $weight, float $size){
+    public function __construct(Tutor $tutor, string $name, string $breed, string $color, int $paws, float $weight, float $size){
+        $this->tutor = $tutor;
         $this->name = $name;
         $this->breed = $breed;
         $this->color = $color;
@@ -19,6 +21,9 @@ abstract class Animal {
         $this->size = $size;
     }
 
+    public function getNameTutor(): string {
+        return $this->tutor->getName();
+    }
     public function getName(): string{
         return $this->name;
     }
@@ -38,5 +43,5 @@ abstract class Animal {
         return $this->size;
     }
 
-
+    abstract public function speak();    
 }

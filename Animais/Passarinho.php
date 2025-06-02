@@ -4,8 +4,8 @@ require_once "Animal.php";
 
 class Passarinho extends Animal{
 
-    public function __construct($name, $breed, $color, $paws, $weight, $size){
-        parent::__construct($name, $breed, $color, $paws, $weight, $size);
+    public function __construct($tutor, $name, $breed, $color, $paws, $weight, $size){
+        parent::__construct($tutor, $name, $breed, $color, $paws, $weight, $size);
         
     }
 

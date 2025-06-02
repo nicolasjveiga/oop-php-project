@@ -9,7 +9,7 @@ class Cachorro extends Animal{
     }
 
     public function speak(){
-
+        return $this->getName().  ": Au Au!" . PHP_EOL;
     }
 
 }

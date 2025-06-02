@@ -1,0 +1,15 @@
+<?php
+
+require_once 'Animal.php';
+
+class Cachorro extends Animal{
+    
+    public function __construct($name, $breed, $color, $paws, $weight, $size){
+        parent::__construct($name, $breed, $color, $paws, $weight, $size);    
+    }
+
+    public function speak(){
+
+    }
+
+}

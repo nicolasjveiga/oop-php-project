@@ -16,6 +16,9 @@ $produtos = [];
 $gatos = [];
 $cachorro = [];
 $passarinhos = [];
+$veterinarios = [];
+$vendedores = [];
+$balconistas = [];
 
 while(true){
     echo "+-------------Menu-------------+\n";
@@ -23,7 +26,7 @@ while(true){
     echo "| 2 - Cadastro de Produtos     |\n";
     echo "| 3 - Cadastro de Animais      |\n";
     echo "| 4 - Cadastro de Funcionario  |\n";
-    echo "| 2 - Vendas                   |\n";
+    echo "| 5 - Vendas                   |\n";
     echo "+------------------------------+\n";
     $option = readline("Escolha uma opção: ");
     
@@ -55,7 +58,7 @@ while(true){
             foreach($tutores as $i => $tutor){
                 echo "$i - " . $tutor->getName() . "\n";
             }
-            $TutorId = readline("Escolha o tutor pelo ID");
+            $TutorId = readline("Escolha o tutor pelo ID: ");
             
             $tutor = $tutores[$TutorId];
             $name = readline("Digite o nome do animal: ");
@@ -68,46 +71,47 @@ while(true){
             switch($animalOption){
                 case 1:
                     $gatos[] = new Gato($tutor, $name, $breed, $color, $paws, $weight, $size);
-                    print_r($gatos);
                     break;
                 case 2: 
+                    $cachorros[] = new Cachorro($tutor, $name, $breed, $color, $paws, $weight, $size);
                     break;
                 case 3:
+                    $passarinhos[] = new Passarinho($tutor, $name, $breed, $color, $paws, $weight, $size);
+                    break;
+                default:
                     break;
             }
         case 4: 
-    }
+            echo "+----Cadastro De Funcionarios---+\n";
+            echo "| 1 - Veterinário               |\n";
+            echo "| 2 - Vendedor                  |\n";
+            echo "| 3 - Balconista                |\n";
+            echo "+-------------------------------+\n";
+            $funcOptions = readline("Escolha que funcionário registrar: ");
+            
+            $name = readline("Digite o nome: ");
+            $address = readline("Digite o endereço: ");
+            $age = readline("Digite a idade: ");
+            $contact = readline("Digite o contato: ");
+            $salary = readline("Digite o salário: ");
+
+            switch($funcOptions){
+                case 1: 
+                    $veterinarios[] = new Veterinario($name, $address, $age, $contact, $salary);
+                    break;
+                case 2:
+                    $vendedores[] = new Vendedor($name, $address, $age, $contact, $salary);
+                    break;
+                case 3:
+                    $balconistas = new Balconista($name, $address, $age, $contact, $salary);
+                    break;    
+                default:
+                    break;
+            }
+        case 5:
+
+    }   
 }
-
-
-// $gato = new Gato($tutor1, "Mimi", "Siamese", "White", 4, 3.5, 30.0);
-// echo $gato->getNameTutor() . ": \n";
-// echo $gato->getName() . ": ";
-// echo $gato->speak() . PHP_EOL;
-
-// $cachorro = new Cachorro($tutor1, "Rex", "Labrador", "Black", 4, 30.0, 60.0);
-// echo $cachorro->getNameTutor() . ": \n";
-// echo $cachorro->getName() . ": ";
-// echo $cachorro->speak() . PHP_EOL;
-
-// $passarinho = new Passarinho($tutor1, "Tweety", "Canary", "Yellow", 2, 0.1, 15.0);
-// echo $passarinho->getNameTutor() . ": \n";
-// echo $passarinho->getName() . ": ";
-// echo $passarinho->speak() . PHP_EOL;
-
-// HUMANOS
-
-// $veterinario = new Veterinario("Dr. Smith", "Rua Veterinária", 40, 88888888, 1340.50);
-// echo $veterinario->getName() . ": \n";
-// echo $veterinario->calcSalario() . PHP_EOL;
-
-// $balconista = new Balconista("Maria", "Rua Balconista", 22, 77777777, 1340.5);
-// echo $balconista->getName() . ": \n";
-// echo $balconista->calcSalario() . PHP_EOL;
-
-// $vendedor = new Vendedor("Carlos", "Rua Vendedor", 28, 66666666, 1340.5);
-// echo $vendedor->getName() . ": \n";
-// echo $vendedor->calcSalario() . PHP_EOL;
 
 // VENDAS
 

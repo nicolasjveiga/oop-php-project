@@ -19,6 +19,27 @@ $passarinhos = [];
 $veterinarios = [];
 $vendedores = [];
 $balconistas = [];
+$vendas = [];
+
+function listarTutores($tutores){
+    if (empty($tutores)) {
+        echo "Cadastre um tutor antes!";
+    }
+    echo "Tutores Cadastrados:\n";
+    foreach($tutores as $i => $tutor){
+        echo "$i - " . $tutor->getName() . "\n";
+    }
+}
+
+function listarProdutos($produtos){
+    if (empty($produtos)) {
+        echo "Cadastre um produto antes!\n";
+    }
+    echo "Produtos disponíveis:\n";
+    foreach($produtos as $i => $produto){
+        echo "$i - " . $produto->getName() . " \n"; 
+    }
+}
 
 while(true){
     echo "+-------------Menu-------------+\n";
@@ -49,15 +70,7 @@ while(true){
             echo "| 3 - Passarinho               |\n";
             echo "+------------------------------+\n";
             $animalOption = readline ("Escolha qual animal deseja Cadastrar: ");
-            if (empty($tutores)) {
-                echo "Cadastre um tutor antes!";
-                break;
-            }
-
-            echo "Tutores Cadastrados:\n";
-            foreach($tutores as $i => $tutor){
-                echo "$i - " . $tutor->getName() . "\n";
-            }
+            listarTutores($tutores);
             $TutorId = readline("Escolha o tutor pelo ID: ");
             
             $tutor = $tutores[$TutorId];
@@ -103,36 +116,28 @@ while(true){
                     $vendedores[] = new Vendedor($name, $address, $age, $contact, $salary);
                     break;
                 case 3:
-                    $balconistas = new Balconista($name, $address, $age, $contact, $salary);
+                    $balconistas[] = new Balconista($name, $address, $age, $contact, $salary);
                     break;    
                 default:
                     break;
             }
         case 5:
+            echo "+------------Vendas------------+\n";
+            listarProdutos($produtos);
+            $produtoId = readline("Escolha o produto pelo ID: ");
+            $quantidade = readline("Digite a quantidade: ");
 
+            listarTutores($tutores);
+            $tutorId = readline("Escolha o tutor pelo ID: ");
+
+
+            $tutor = $tutores[$tutorId];
+            $produto = $produtos[$produtoId];
+            $venda = new Venda($tutor);
+            $venda->addItens(new ItemVenda($produto, $quantidade));
+            echo $produto->getName() . " Foi vendido para: " . $tutor->getName() . PHP_EOL;
+            $vendas[] = $venda;    
+        default:
+            break; 
     }   
 }
-
-// VENDAS
-
-// $p1 = new Produto("Produto 1");
-// $p2 = new Produto("Produto 2");
-// $p3 = new Produto("Produto 3");
-
-// $venda = new Venda($tutor1);
-
-// $venda->addItens(new ItemVenda($p1, 2));
-// $venda->addItens(new ItemVenda($p2, 3));
-
-// $venda2 = new Venda($tutor2);
-
-// $venda2->addItens(new ItemVenda($p1, 3));
-// $venda2->addItens(new ItemVenda($p2, 5));
-// $venda2->addItens(new ItemVenda($p3, 6));
-
-// foreach ($venda->listarItens() as $info) {
-//     echo $info . PHP_EOL;
-// }
-// foreach ($venda2->listarItens() as $info) {
-//     echo $info . PHP_EOL;
-//}

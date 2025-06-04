@@ -21,49 +21,91 @@ $vendedores = [];
 $balconistas = [];
 $vendas = [];
 
-function listarTutores($tutores){
+function listarTutores($tutores): bool{
     if (empty($tutores)) {
-        echo "Cadastre um tutor antes!";
+        echo "Cadastre um tutor antes!\n";
+        return false;
     }
     echo "Tutores Cadastrados:\n";
     foreach($tutores as $i => $tutor){
         echo "$i - " . $tutor->getName() . "\n";
     }
+    return true;
 }
 
-function listarProdutos($produtos){
+function listarProdutos($produtos): bool{
     if (empty($produtos)) {
         echo "Cadastre um produto antes!\n";
+        return false;
     }
     echo "Produtos disponíveis:\n";
     foreach($produtos as $i => $produto){
         echo "$i - " . $produto->getName() . " \n"; 
     }
+    return true;
+}
+function clear() {
+    system('clear');
 }
 
 while(true){
+    clear();
     echo "+-------------Menu-------------+\n";
-    echo "| 1 - Cadastro de Tutor        |\n";
+    echo "| 1 - Cadastro de Humano       |\n";
     echo "| 2 - Cadastro de Produtos     |\n";
     echo "| 3 - Cadastro de Animais      |\n";
-    echo "| 4 - Cadastro de Funcionario  |\n";
-    echo "| 5 - Vendas                   |\n";
+    echo "| 4 - Vender                   |\n";
     echo "+------------------------------+\n";
     $option = readline("Escolha uma opção: ");
     
     switch($option){
         case 1:
+            clear();
+            echo "+------Cadastro De Humanos------+\n";
+            echo "| 1 - Veterinário               |\n";
+            echo "| 2 - Vendedor                  |\n";
+            echo "| 3 - Balconista                |\n";
+            echo "| 4 - Tutor                     |\n";
+            echo "+-------------------------------+\n";
+            $humanOption = readline("Escolhe o que cadastrar: ");
+
             $name = readline ("Digite o Nome: ");
             $address = readline ("Digite o Endereço: ");
             $age = readline ("Digite a idade: ");
             $contact = readline ("Digite o contato: ");
-            $tutores[] = new Tutor($name, $address, $age, $contact);
+            switch($humanOption){
+                case 1:
+                case 2:
+                case 3:
+                    $salary = readline("Digite o salário: ");
+                    break;
+                default:
+                    $salary = null;
+            }
+
+            switch($humanOption){
+                case 1: 
+                    $veterinarios[] = new Veterinario($name, $address, $age, $contact, $salary);
+                    break;
+                case 2: 
+                    $vendedores[] = new Vendedor($name, $address, $age, $contact, $salary);
+                    break;
+                case 3:
+                    $balconista[] = new Balconista($name, $address, $age, $contact, $salary);
+                    break;
+                case 4:
+                    $tutores[] = new Tutor($name, $address, $age, $contact);
+                    break;
+            }
             break;
         case 2:
+            clear();
+            echo "+-----Cadastro de produtos-----+\n";
             $name = readline("Digite o Nome do Produto: ");
             $produtos[] = new Produto($name);
             break;
         case 3:
+            clear();
             echo "+------Cadastro De Animais-----+\n";
             echo "| 1 - Gato                     |\n";
             echo "| 2 - Cachorro                 |\n";
@@ -94,49 +136,35 @@ while(true){
                 default:
                     break;
             }
-        case 4: 
-            echo "+----Cadastro De Funcionarios---+\n";
-            echo "| 1 - Veterinário               |\n";
-            echo "| 2 - Vendedor                  |\n";
-            echo "| 3 - Balconista                |\n";
-            echo "+-------------------------------+\n";
-            $funcOptions = readline("Escolha que funcionário registrar: ");
-            
-            $name = readline("Digite o nome: ");
-            $address = readline("Digite o endereço: ");
-            $age = readline("Digite a idade: ");
-            $contact = readline("Digite o contato: ");
-            $salary = readline("Digite o salário: ");
+            break;
 
-            switch($funcOptions){
-                case 1: 
-                    $veterinarios[] = new Veterinario($name, $address, $age, $contact, $salary);
-                    break;
-                case 2:
-                    $vendedores[] = new Vendedor($name, $address, $age, $contact, $salary);
-                    break;
-                case 3:
-                    $balconistas[] = new Balconista($name, $address, $age, $contact, $salary);
-                    break;    
-                default:
-                    break;
-            }
-        case 5:
+        case 4:
+            clear();
             echo "+------------Vendas------------+\n";
-            listarProdutos($produtos);
-            $produtoId = readline("Escolha o produto pelo ID: ");
-            $quantidade = readline("Digite a quantidade: ");
-
-            listarTutores($tutores);
-            $tutorId = readline("Escolha o tutor pelo ID: ");
-
+            
+            if(listarTutores($tutores)){
+                $tutorId = readline("Escolha o tutor pelo ID: ");
+            } else {
+                readline("Pressione Enter para continuar");
+                break;
+            }
+            
+            if(listarProdutos($produtos)){
+                $produtoId = readline("Escolha o produto pelo ID: ");
+                $quantidade = readline("Digite a quantidade: ");
+            } else {
+                readline("Pressione Enter para continuar");
+                break;
+            }
 
             $tutor = $tutores[$tutorId];
             $produto = $produtos[$produtoId];
             $venda = new Venda($tutor);
             $venda->addItens(new ItemVenda($produto, $quantidade));
             echo $produto->getName() . " Foi vendido para: " . $tutor->getName() . PHP_EOL;
+            readline("Pressione Enter para continuar");
             $vendas[] = $venda;    
+            break;
         default:
             break; 
     }   
